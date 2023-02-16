@@ -1,10 +1,10 @@
-//  Store Game Status 
+//  Store Game Status -> selects element by tag
 const gameStatus = document.querySelector('.game-status')
 // Create variables to track game state 
 let gameIsActive = true ;
 let currentPlayer = "X";
 let gameState = ["","","","","","","","",""]
-
+// sets content to "X" our currentPlayer variable 
 gameStatus.innerHTML = currentPlayerTurn()
 
   const winningConditions = [
@@ -46,8 +46,25 @@ function handleResult() {
 
 }
 
+// Function Checks if clickedCell already has been clicked and if it has not continue the game
 function handleCellClick(ClickedCellEvent) {
-  
+  // Saves the clicked html element in a variable for easier use
+  const clickedCell = ClickedCellEvent.target;
+//   inside our function we want to grab 'data-cell-index' from the clicked cell
+// we use getAttribute(get,set, or check if) string value return a string value
+    const clickedCellIndex = parseInt(
+        clickedCell.getAttribute('data-cell-index')
+    );
+   
+// Next we check whether or not the call has already been played, or if the game is paused. if either is true we ignore the clicks
+    if(gameState[clickedCellIndex] != "" || !gameIsActive){
+        return;
+    }
+    // We will accept a ClickEvent from our cell event listener. That will allow us to track which cell has been clicked and get its’ index attribute more easily.
+    // If everything is in order proceed with the game
+    handleCellPlayed(clickedCell,clickedCellIndex);
+    handleResult()
+
 }
 
 function handleRestartGame() {
