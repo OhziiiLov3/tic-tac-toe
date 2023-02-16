@@ -4,6 +4,7 @@ const gameStatus = document.querySelector('.game-status')
 let gameIsActive = true ;
 let currentPlayer = "X";
 let gameState = ["","","","","","","","",""]
+// we set the inital message to let players know whose turn it is 
 // sets content to "X" our currentPlayer variable 
 gameStatus.innerHTML = currentPlayerTurn()
 
@@ -31,8 +32,11 @@ function drawMessage() {
 function currentPlayerTurn(){
     return `It's ${currentPlayer}'s turn`
 }
-// we set the inital message to let players know whose turn it is 
+
 function handleCellPlayed(clickedCell, clickedCellIndex) {
+    // update the state of the game to reflect the players move, and update the UI to reflect move 
+    gameState[clickedCellIndex] = currentPlayer;
+    clickedCell.innerHTML = currentPlayer;
     
 }
 
